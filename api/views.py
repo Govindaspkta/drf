@@ -22,13 +22,13 @@ def studentsView(request):
         print(serializer.errors)
         return Response(serializer.errors,status=status.HTTP_404_BAD_REQUEST)
     
-    
+@api_view(['GET'])
 def studentDetailView(request,pk):
     try:
         students=Student.objects.get(pk=pk)
     except Student.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     if request.method=='GET':
-        students=Student.objects.all()
-        serializer=StudentSerializer(students,many=True)
+
+        serializer=StudentSerializer(students)
         return Response(serializer.data,status=status.HTTP_200_OK)
