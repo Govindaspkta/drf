@@ -11,7 +11,7 @@ urlpatterns = [
     
     #emplpoyee endpoints
     #class based views
-    path('employees/',views.Employees.as_view),
+    path('employees/',views.Employee.as_view),
 ]
 
     

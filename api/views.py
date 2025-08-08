@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
-from employees.models import Employees
+from employee.models import Employee
 # Create your views here.
 @api_view(['GET','POST'])
 def studentsView(request):
@@ -47,9 +47,9 @@ def studentDetailView(request,pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 
-class Employees(APIView):
+class Employee(APIView):
     def  get(self,request):
-        employees=Employees.objects.all()
+        employees=Employee.objects.all()
         serializer=EmployeeSerializer(employees,many=True)
         return Response(serializer.data,status=status.HTTP_200_OK)
     
