@@ -47,7 +47,7 @@ def studentDetailView(request,pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 
-class Employee(APIView):
+class EmployeeView(APIView):
     def  get(self,request):
         employees=Employee.objects.all()
         serializer=EmployeeSerializer(employees,many=True)

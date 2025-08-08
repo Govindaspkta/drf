@@ -22,10 +22,10 @@ urlpatterns = [
     
     #web app endpoints
     path('students/',include('students.urls')),
-    path('employees/',include('employee.urls')),
+    # path('employees/',include('employee.urls')),
     
     #API 
     path('api/v1/',include('api.urls')),
-    path('api/v1/',include('api.urls'))
+    # path('api/v1/',include('api.urls'))
 
 ]
