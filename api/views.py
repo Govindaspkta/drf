@@ -1,10 +1,12 @@
 # from django.shortcuts import render
 # from django.http import JsonResponse
 from students.models import Student
-from .serializers import StudentSerializer
+from .serializers import StudentSerializer,EmployeeSerializer
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.views import APIView
+from employees.models import Employees
 # Create your views here.
 @api_view(['GET','POST'])
 def studentsView(request):
@@ -22,7 +24,7 @@ def studentsView(request):
         print(serializer.errors)
         return Response(serializer.errors,status=status.HTTP_404_BAD_REQUEST)
     
-@api_view(['GET'])
+@api_view(['GET','PUT','DELETE'])
 def studentDetailView(request,pk):
     try:
         students=Student.objects.get(pk=pk)
@@ -32,3 +34,24 @@ def studentDetailView(request,pk):
 
         serializer=StudentSerializer(students)
         return Response(serializer.data,status=status.HTTP_200_OK)
+    elif request.method=='PUT':
+        serializer=StudentSerializer(students,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors,status=status.HTTP_404_BAD_REQUEST)
+    
+    elif request.method== 'DELETE':
+        students.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+
+class Employees(APIView):
+    def  get(self,request):
+        employees=Employees.objects.all()
+        serializer=EmployeeSerializer(employees,many=True)
+        return Response(serializer.data,status=status.HTTP_200_OK)
+    
+    def post():
+        pass
