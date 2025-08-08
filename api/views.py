@@ -59,4 +59,12 @@ class EmployeeView(APIView):
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.data,status=status.HTTP_404_BAD_REQUEST)
+    
+    def put(self,request):
+        employees=Employee.objects.all()
+        serializer=EmployeeSerializer(employees,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_202_OK)
+        return Response(serializer.errors,status=status.HTTP_404_BAD_REQUEST)
         
