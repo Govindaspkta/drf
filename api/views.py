@@ -67,4 +67,5 @@ class EmployeeView(APIView):
             serializer.save()
             return Response(serializer.data,status=status.HTTP_202_OK)
         return Response(serializer.errors,status=status.HTTP_404_BAD_REQUEST)
-        
+    
+class EmployeeDetails(APIView)
